@@ -267,8 +267,7 @@ define gitlab_ci_multi_runner::runner (
         command  => "gitlab-ci-multi-runner register --non-interactive ${opts}",
         user     => $user,
         provider => shell,
-
-        onlyif   => "! grep ${description} ${::gitlab_ci_multi_runner::version}",
+        unless   => "grep ${description} ${toml_file}",
         cwd      => $home_path,
         require  => $require,
     }
